@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: Android Build
+name: Build
 
 # Controls when the action will run. 
 on:
@@ -16,8 +16,8 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
-  buildAndroid:
-    name: buildAndroid
+  Build:
+    name: Build
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -86,5 +86,5 @@ jobs:
       - name: Publish Artifact
         uses: actions/upload-artifact@v2.2.4
         with:
-          name: PE Android Build
+          name: PE Build
           path: export/release/android/bin/app/build/outputs/apk/debug
