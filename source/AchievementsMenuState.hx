@@ -73,7 +73,6 @@ class AchievementsMenuState extends MusicBeatState
 
 		#if mobile
 		addVirtualPad(UP_DOWN, B);
-		addVirtualPadCamera();
 		#end
 
 		super.create();
