@@ -1860,7 +1860,7 @@ class ChartingState extends MusicBeatState
 					quantization = quantizations[curQuant];
 				}
 
-				if(FlxG.keys.justPressed.LEFT if mobile || virtualPad.buttonLeft.justPressed #end){
+				if(FlxG.keys.justPressed.LEFT #if mobile || virtualPad.buttonLeft.justPressed #end){
 					curQuant--;
 					if(curQuant<0)
 						curQuant = quantizations.length-1;
