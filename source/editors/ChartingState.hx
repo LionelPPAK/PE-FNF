@@ -1843,7 +1843,7 @@ class ChartingState extends MusicBeatState
 
 			var style = currentType;
 
-			if (FlxG.keys.pressed.SHIFT #if mobile || virtualPad.buttonY.justPressed #end)){
+			if (FlxG.keys.pressed.SHIFT #if mobile || virtualPad.buttonY.justPressed #end){
 				style = 3;
 			}
 
@@ -1852,7 +1852,7 @@ class ChartingState extends MusicBeatState
 			//AWW YOU MADE IT SEXY <3333 THX SHADMAR
 
 			if(!blockInput){
-				if(FlxG.keys.justPressed.RIGHT #if mobile || virtualPad.buttonRight.justPressed #end)){
+				if(FlxG.keys.justPressed.RIGHT #if mobile || virtualPad.buttonRight.justPressed #end){
 					curQuant++;
 					if(curQuant>quantizations.length-1)
 						curQuant = 0;
@@ -1860,7 +1860,7 @@ class ChartingState extends MusicBeatState
 					quantization = quantizations[curQuant];
 				}
 
-				if(FlxG.keys.justPressed.LEFT if mobile || virtualPad.buttonLeft.justPressed #end)){
+				if(FlxG.keys.justPressed.LEFT if mobile || virtualPad.buttonLeft.justPressed #end){
 					curQuant--;
 					if(curQuant<0)
 						curQuant = quantizations.length-1;
@@ -1883,7 +1883,7 @@ class ChartingState extends MusicBeatState
 				}
 
 				var feces:Float;
-				if (FlxG.keys.justPressed.UP || FlxG.keys.justPressed.DOWN #if mobile || virtualPad.buttonUp.justPressed || virtualPad.buttonDown.justPressed #end))
+				if (FlxG.keys.justPressed.UP || FlxG.keys.justPressed.DOWN #if mobile || virtualPad.buttonUp.justPressed || virtualPad.buttonDown.justPressed #end)
 				{
 					FlxG.sound.music.pause();
 
@@ -1896,7 +1896,7 @@ class ChartingState extends MusicBeatState
 					var beat:Float = curDecBeat;
 					var snap:Float = quantization / 4;
 					var increase:Float = 1 / snap;
-					if (FlxG.keys.pressed.UP #if mobile || virtualPad.buttonUp.justPressed #end))
+					if (FlxG.keys.pressed.UP #if mobile || virtualPad.buttonUp.justPressed #end)
 					{
 						var fuck:Float = CoolUtil.quantize(beat, snap) - increase;
 						feces = Conductor.beatToSeconds(fuck);
@@ -1938,12 +1938,12 @@ class ChartingState extends MusicBeatState
 				}
 			}
 			var shiftThing:Int = 1;
-			if (FlxG.keys.pressed.SHIFT #if mobile || virtualPad.buttonY.justPressed #end))
+			if (FlxG.keys.pressed.SHIFT #if mobile || virtualPad.buttonY.justPressed #end)
 				shiftThing = 4;
 
-			if (FlxG.keys.justPressed.D #if mobile || virtualPad.buttonRight.justPressed #end))
+			if (FlxG.keys.justPressed.D #if mobile || virtualPad.buttonRight.justPressed #end)
 				changeSection(curSec + shiftThing);
-			if (FlxG.keys.justPressed.A #if mobile || virtualPad.buttonLeft.justPressed #end)) {
+			if (FlxG.keys.justPressed.A #if mobile || virtualPad.buttonLeft.justPressed #end) {
 				if(curSec <= 0) {
 					changeSection(_song.notes.length-1);
 				} else {
