@@ -162,9 +162,9 @@ class GameplayChangersSubstate extends MusicBeatSubstate
 		reloadCheckboxes();
 		
 		#if mobile
-		addVirtualPad(LEFT_FULL, A_B);
+		addVirtualPad(LEFT_FULL, A_B_C);
+		addVirtualPadCamera();
 		#end
-		
 	}
 
 	var nextAccept:Int = 5;
@@ -182,7 +182,12 @@ class GameplayChangersSubstate extends MusicBeatSubstate
 		}
 
 		if (controls.BACK) {
+			#if mobile
+			flixel.addons.transition.FlxTransitionableState.skipNextTransOut = true;
+			FlxG.resetState();
+            #else
 			close();
+			#end
 			ClientPrefs.saveSettings();
 			FlxG.sound.play(Paths.sound('cancelMenu'));
 		}
@@ -295,7 +300,7 @@ class GameplayChangersSubstate extends MusicBeatSubstate
 				}
 			}
 
-			if(controls.RESET)
+			if(controls.RESET #if mobile || virtualPad.buttonC.justPressed #end)
 			{
 				for (i in 0...optionsArray.length)
 				{
