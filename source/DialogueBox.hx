@@ -15,7 +15,7 @@ using StringTools;
 class DialogueBox extends FlxSpriteGroup
 {
 	var box:FlxSprite;
-
+	
 	var curCharacter:String = '';
 
 	var dialogue:Alphabet;
@@ -145,7 +145,7 @@ class DialogueBox extends FlxSpriteGroup
 		swagDialogue.sounds = [FlxG.sound.load(Paths.sound('pixelText'), 0.6)];
 		add(swagDialogue);
 
-		dialogue = new Alphabet(0, 80, "", false);
+		dialogue = new Alphabet(0, 80, "", false, true);
 		// dialogue.x = 90;
 		// add(dialogue);
 	}
