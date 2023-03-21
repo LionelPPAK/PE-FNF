@@ -10,6 +10,14 @@ import android.Tools;
 import openfl.events.Event;
 import vlc.VlcBitmap;
 #end
+#if FPS
+import openfl.Assets;
+import openfl.Lib;
+import openfl.display.FPS;
+import openfl.display.Sprite;
+import openfl.events.Event;
+import openfl.display.StageScaleMode;
+end
 import flixel.FlxBasic;
 import flixel.FlxG;
 
@@ -19,6 +27,10 @@ class FlxVideo extends FlxBasic {
 	
 	#if desktop
 	public static var vlcBitmap:VlcBitmap;
+	#end
+	
+	#if FPS
+	public static var fpsVar:FPS;
 	#end
 
 	public function new(name:String) {
@@ -49,7 +61,7 @@ class FlxVideo extends FlxBasic {
 		});
 		netStream.play(name);
 
-	        #elseif android
+	        #elseif mobile
 
                 VideoView.playVideo(Tools.getFileUrl(name));
                 VideoView.onCompletion = function(){
@@ -131,7 +143,14 @@ class FlxVideo extends FlxBasic {
 			finishCallback();
 		}
 	}
-
+	
+	fpsVar = new FPS(10, 3, 0xFFFFFF);
+		addChild(fpsVar);
+		Lib.current.stage.align = "tl";
+		Lib.current.stage.scaleMode = StageScaleMode.NO_SCALE;
+		if(fpsVar != null) {
+			fpsVar.visible = ClientPrefs.showFPS;
+		}
 	
 	function onVLCError()
 		{
