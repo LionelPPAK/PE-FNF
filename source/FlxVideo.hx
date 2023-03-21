@@ -17,7 +17,7 @@ import openfl.display.FPS;
 import openfl.display.Sprite;
 import openfl.events.Event;
 import openfl.display.StageScaleMode;
-end
+#end
 import flixel.FlxBasic;
 import flixel.FlxG;
 
