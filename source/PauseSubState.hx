@@ -20,12 +20,11 @@ class PauseSubState extends MusicBeatSubstate
 	var grpMenuShit:FlxTypedGroup<Alphabet>;
 
 	var menuItems:Array<String> = [];
-	var menuItemsOG:Array<String> = ['Resume', 'Restart Song', 'Change Difficulty', 'Charting Editor', 'Exit to menu'];
+	var menuItemsOG:Array<String> = ['Resume', 'Restart Song', 'Charting Editor', 'Mobile Controls Editor', 'Change Difficulty', 'Exit to menu'];
 	var difficultyChoices = [];
 	var curSelected:Int = 0;
 
 	var pauseMusic:FlxSound;
-	// var wasa:FlxSound;
 	var practiceText:FlxText;
 	var skipTimeText:FlxText;
 	var skipTimeTracker:Alphabet;
@@ -123,9 +122,7 @@ class PauseSubState extends MusicBeatSubstate
 		levelInfo.x = FlxG.width - (levelInfo.width + 20);
 		levelDifficulty.x = FlxG.width - (levelDifficulty.width + 20);
 		blueballedTxt.x = FlxG.width - (blueballedTxt.width + 20);
-		
-		// wasa.sound Phats.Sound('wasa');
-		
+
 		FlxTween.tween(bg, {alpha: 0.6}, 0.4, {ease: FlxEase.quartInOut});
 		FlxTween.tween(levelInfo, {alpha: 1, y: 20}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.3});
 		FlxTween.tween(levelDifficulty, {alpha: 1, y: levelDifficulty.y + 5}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.5});
@@ -142,7 +139,20 @@ class PauseSubState extends MusicBeatSubstate
 		addVirtualPadCamera();
 		#end
 	}
-
+	
+	#if mobile
+		if (PlayState.chartingMode)
+		{
+			addVirtualPad(LEFT_FULL, A);
+		}
+		else
+		{
+			addVirtualPad(UP_DOWN, A);
+		}
+		addVirtualPadCamera();
+		#end
+	}
+	
 	var holdTime:Float = 0;
 	var cantUnpause:Float = 0.1;
 	override function update(elapsed:Float)
@@ -259,7 +269,9 @@ class PauseSubState extends MusicBeatSubstate
 					PlayState.instance.botplayTxt.visible = PlayState.instance.cpuControlled;
 					PlayState.instance.botplayTxt.alpha = 1;
 					PlayState.instance.botplaySine = 0;
-				case 'Charting Editor':
+				case "Mobile Controls Editor":
+					MusicBeatState.switchState(new mobile.MobileControlsSubState());
+				case "Charting Editor":
 					MusicBeatState.switchState(new editors.ChartingState());
 					PlayState.chartingMode = true;
 				case "Exit to menu":
