@@ -160,9 +160,12 @@ class MainMenuState extends MusicBeatState
 		addVirtualPad(UP_DOWN, A_B_E);
 		addVirtualPadCamera();
 		virtualPad.y = -44;
+		virtualPad.alpha = 0.00001;
 		#end
 		
 		super.create();
+		
+		FlxTween.tween(virtualPad, {alpha: 1}, 1, {ease: FlxEase.circInOut});
 	}
 
 	#if ACHIEVEMENTS_ALLOWED
@@ -243,6 +246,7 @@ class MainMenuState extends MusicBeatState
 								{
 									case 'story_mode':
 										MusicBeatState.switchState(new StoryMenuState());
+FlxTween.tween(virtualPad, {alpha: 0.00001}, 1, {ease: FlxEase.circInOut});
 									case 'freeplay':
 										MusicBeatState.switchState(new FreeplayState());
 									#if MODS_ALLOWED
