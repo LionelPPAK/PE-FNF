@@ -160,7 +160,7 @@ class MainMenuState extends MusicBeatState
 		addVirtualPad(UP_DOWN, A_B_E);
 		addVirtualPadCamera();
 		virtualPad.y = -44;
-		virtualPad.alpha = 0.00001;
+		virtualPad.alpha = 0;
 		#end
 		
 		super.create();
@@ -209,6 +209,7 @@ class MainMenuState extends MusicBeatState
 				selectedSomethin = true;
 				FlxG.sound.play(Paths.sound('cancelMenu'));
 				MusicBeatState.switchState(new TitleState());
+				FlxTween.tween(virtualPad, {alpha: 0}, 1, {ease: FlxEase.circInOut});
 			}
 
 			if (controls.ACCEPT)
@@ -246,19 +247,24 @@ class MainMenuState extends MusicBeatState
 								{
 									case 'story_mode':
 										MusicBeatState.switchState(new StoryMenuState());
-FlxTween.tween(virtualPad, {alpha: 0.00001}, 1, {ease: FlxEase.circInOut});
+									FlxTween.tween(virtualPad, {alpha: 0}, 1, {ease: FlxEase.circInOut});
 									case 'freeplay':
 										MusicBeatState.switchState(new FreeplayState());
+									FlxTween.tween(virtualPad, {alpha: 0}, 1, {ease: FlxEase.circInOut});
 									#if MODS_ALLOWED
 									case 'mods':
 										MusicBeatState.switchState(new ModsMenuState());
+									FlxTween.tween(virtualPad, {alpha: 0}, 1, {ease: FlxEase.circInOut});
 									#end
 									case 'awards':
 										MusicBeatState.switchState(new AchievementsMenuState());
+									FlxTween.tween(virtualPad, {alpha: 0}, 1, {ease: FlxEase.circInOut});
 									case 'credits':
 										MusicBeatState.switchState(new CreditsState());
+									FlxTween.tween(virtualPad, {alpha: 0}, 1, {ease: FlxEase.circInOut});
 									case 'options':
 										LoadingState.loadAndSwitchState(new options.OptionsState());
+									FlxTween.tween(virtualPad, {alpha: 0}, 1, {ease: FlxEase.circInOut});
 								}
 							});
 						}

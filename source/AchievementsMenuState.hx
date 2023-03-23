@@ -73,9 +73,13 @@ class AchievementsMenuState extends MusicBeatState
 
 		#if mobile
 		addVirtualPad(UP_DOWN, B);
+		addVirtualPadCamera();
+		virtualPad.alpha = 0;
 		#end
 
 		super.create();
+		
+		FlxTween.tween(virtualPad, {alpha: 1}, 1, {ease: FlxEase.circInOut});
 	}
 
 	override function update(elapsed:Float) {
@@ -91,6 +95,7 @@ class AchievementsMenuState extends MusicBeatState
 		if (controls.BACK) {
 			FlxG.sound.play(Paths.sound('cancelMenu'));
 			MusicBeatState.switchState(new MainMenuState());
+			FlxTween.tween(virtualPad, {alpha: 0}, 1, {ease: FlxEase.circInOut});
 		}
 	}
 

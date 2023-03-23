@@ -161,9 +161,13 @@ class CreditsState extends MusicBeatState
 		
 		#if mobile
 		addVirtualPad(UP_DOWN, A_B);
+		addVirtualPadCamera();
+		virtualPad.alpha = 0;
 		#end
 		
 		super.create();
+		
+		FlxTween.tween(virtualPad, {alpha: 1}, 1, {ease: FlxEase.circInOut});
 	}
 
 	var quitting:Bool = false;
@@ -220,6 +224,7 @@ class CreditsState extends MusicBeatState
 				FlxG.sound.play(Paths.sound('cancelMenu'));
 				MusicBeatState.switchState(new MainMenuState());
 				quitting = true;
+				FlxTween.tween(virtualPad, {alpha: 0}, 1, {ease: FlxEase.circInOut});
 			}
 		}
 		

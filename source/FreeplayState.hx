@@ -58,7 +58,8 @@ class FreeplayState extends MusicBeatState
 		persistentUpdate = true;
 		PlayState.isStoryMode = false;
 		WeekData.reloadWeekFiles(false);
-
+		FlxTween.tween(virtualPad, {alpha: 0}, 1, {ease: FlxEase.circInOut});
+		
 		#if desktop
 		// Updating Discord Rich Presence
 		DiscordClient.changePresence("In the Menus", null);
@@ -212,9 +213,12 @@ class FreeplayState extends MusicBeatState
 		addVirtualPad(LEFT_FULL, A_B_C_X_Y);
 		addVirtualPadCamera();
 		virtualPad.y = -26;
+		virtualPad.alpha = 0;
 		#end
 		
 		super.create();
+		
+		FlxTween.tween(virtualPad, {alpha: 1}, 1, {ease: FlxEase.circInOut});
 	}
 
 	override function closeSubState() {
@@ -336,6 +340,7 @@ class FreeplayState extends MusicBeatState
 			}
 			FlxG.sound.play(Paths.sound('cancelMenu'));
 			MusicBeatState.switchState(new MainMenuState());
+			FlxTween.tween(virtualPad, {alpha: 0}, 1, {ease: FlxEase.circInOut});
 		}
 
 		if(ctrl)
@@ -345,6 +350,7 @@ class FreeplayState extends MusicBeatState
 			#end
 			persistentUpdate = false;
 			openSubState(new GameplayChangersSubstate());
+			virtualPad.y = -26;
 		}
 		else if(space)
 		{
@@ -415,6 +421,7 @@ class FreeplayState extends MusicBeatState
 			persistentUpdate = false;
 			openSubState(new ResetScoreSubState(songs[curSelected].songName, curDifficulty, songs[curSelected].songCharacter));
 			FlxG.sound.play(Paths.sound('scrollMenu'));
+			virtualPad.y = -26;
 		}
 		super.update(elapsed);
 	}

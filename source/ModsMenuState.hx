@@ -379,9 +379,13 @@ class ModsMenuState extends MusicBeatState
 		
 		#if mobile
 		addVirtualPad(UP_DOWN, A_B);
-		#end
+		addVirtualPadCamera();
+		virtualPad.alpha = 0;
+		#en
 		
 		super.create();
+		
+		FlxTween.tween(virtualPad, {alpha: 1}, 1, {ease: FlxEase.circInOut});
 	}
 
 	/*function getIntArray(max:Int):Array<Int>{
@@ -500,6 +504,7 @@ class ModsMenuState extends MusicBeatState
 			else
 			{
 				MusicBeatState.switchState(new MainMenuState());
+				FlxTween.tween(virtualPad, {alpha: 0}, 1, {ease: FlxEase.circInOut});
 			}
 		}
 
