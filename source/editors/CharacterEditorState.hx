@@ -200,7 +200,12 @@ class CharacterEditorState extends MusicBeatState
 
 		FlxG.mouse.visible = true;
 		reloadCharacterOptions();
-
+		
+		#if mobile
+		addVirtualPad(LEFT_FULL, A_B_C_D_V_X_Y_Z);
+		addVirtualPadCamera();
+		#end
+		
 		super.create();
 	}
 
@@ -1156,12 +1161,12 @@ class CharacterEditorState extends MusicBeatState
 			}
 
 			if(char.animationsArray.length > 0) {
-				if (FlxG.keys.justPressed.W)
+				if (FlxG.keys.justPressed.W #if mobile || virtualPad.buttonV.justPressed #end)
 				{
 					curAnim -= 1;
 				}
 
-				if (FlxG.keys.justPressed.S)
+				if (FlxG.keys.justPressed.S #if mobile || virtualPad.buttonD.justPressed #end)
 				{
 					curAnim += 1;
 				}
@@ -1172,12 +1177,12 @@ class CharacterEditorState extends MusicBeatState
 				if (curAnim >= char.animationsArray.length)
 					curAnim = 0;
 
-				if (FlxG.keys.justPressed.S || FlxG.keys.justPressed.W || FlxG.keys.justPressed.SPACE)
+				if (FlxG.keys.justPressed.S #if mobile || virtualPad.buttonD.justPressed #end || FlxG.keys.justPressed.W #if mobile || virtualPad.buttonV.justPressed #end|| FlxG.keys.justPressed.SPACE)
 				{
 					char.playAnim(char.animationsArray[curAnim].anim, true);
 					genBoyOffsets();
 				}
-				if (FlxG.keys.justPressed.T)
+				if (FlxG.keys.justPressed.T #if mobile || virtualPad.buttonA.justPressed #end)
 				{
 					char.animationsArray[curAnim].offsets = [0, 0];
 
@@ -1186,7 +1191,12 @@ class CharacterEditorState extends MusicBeatState
 					genBoyOffsets();
 				}
 
-				var controlArray:Array<Bool> = [FlxG.keys.justPressed.LEFT, FlxG.keys.justPressed.RIGHT, FlxG.keys.justPressed.UP, FlxG.keys.justPressed.DOWN];
+				var controlArray:Array<Bool> = [
+					FlxG.keys.justPressed.LEFT #if mobile || virtualPad.buttonLeft.justPressed #end,
+					FlxG.keys.justPressed.RIGHT #if mobile || virtualPad.buttonRight.justPressed #end,
+					FlxG.keys.justPressed.UP #if mobile || virtualPad.buttonUp.justPressed #end,
+					FlxG.keys.justPressed.DOWN #if mobile || virtualPad.buttonDown.justPressed #end
+				];
 
 
 
@@ -1291,6 +1301,9 @@ class CharacterEditorState extends MusicBeatState
 
 		if (data.length > 0)
 		{
+		    #if mobile
+            SUtil.saveContent(daAnim, ".json", data);
+            #else
 			_file = new FileReference();
 			_file.addEventListener(Event.COMPLETE, onSaveComplete);
 			_file.addEventListener(Event.CANCEL, onSaveCancel);

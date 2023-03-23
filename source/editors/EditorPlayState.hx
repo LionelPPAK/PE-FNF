@@ -165,6 +165,14 @@ class EditorPlayState extends MusicBeatState
 			FlxG.stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyPress);
 			FlxG.stage.addEventListener(KeyboardEvent.KEY_UP, onKeyRelease);
 		}
+		
+		#if mobile
+		addMobileControls();
+		#end
+
+		#if mobile
+		mobileControls.visible = true;
+		#end
 		super.create();
 	}
 
