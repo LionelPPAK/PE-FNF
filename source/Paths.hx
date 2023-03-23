@@ -223,7 +223,7 @@ class Paths
 		#if html5
 		return 'songs:assets/songs/${formatToSongPath(song)}/Voices.$SOUND_EXT', 'songs:assets/songs/${formatToSongPath(song)}/VoicesTwo.$SOUND_EXT';
 		#else
-		var songKey:String = '${formatToSongPath(song)}/Voices', '${formatToSongPath(song)}/VoicesTwo',;
+		var songKey:String = '${formatToSongPath(song)}/Voices', '${formatToSongPath(song)}/VoicesTwo';
 		var voices = returnSound('songs', songKey);
 		return voices;
 		#end
