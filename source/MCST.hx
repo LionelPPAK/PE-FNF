@@ -208,13 +208,6 @@ class MobileControlsSubState extends FlxSubState
 				}
 			}
 		}
-		
-	override function destroy()
-	{
-		stateMusic.destroy();
-
-		super.destroy();
-	}
 	
 		if (virtualPad != null && controlsItems[Math.floor(curSelected)] == 'Pad-Custom')
 		{
