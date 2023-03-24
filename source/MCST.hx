@@ -5,6 +5,7 @@ import flixel.FlxSprite;
 import flixel.FlxSubState;
 import flixel.addons.transition.FlxTransitionableState;
 import flixel.graphics.frames.FlxAtlasFrames;
+import flixel.input.keyboard.FlxKey;
 import flixel.group.FlxSpriteGroup;
 import flixel.input.touch.FlxTouch;
 import flixel.system.FlxSound;
@@ -16,7 +17,7 @@ import mobile.flixel.FlxHitbox;
 import mobile.flixel.FlxVirtualPad;
 import openfl.utils.Assets;
 
-class MobileControlsSubState extends FlxSubState
+class MCST extends FlxSubState
 {
 	private final controlsItems:Array<String> = ['Pad-Right', 'Pad-Left', 'Pad-Custom', 'Pad-Duo', 'Hitbox', 'Keyboard'];
 
@@ -34,7 +35,6 @@ class MobileControlsSubState extends FlxSubState
 	private var buttonBinded:Bool = false;
 	private var bindButton:FlxButton;
 	private var resetButton:FlxButton;
-	private var stateMusic:FlxSound;
 
 	override function create()
 	{
@@ -47,17 +47,6 @@ class MobileControlsSubState extends FlxSubState
 		bg.alpha = 0.4;
 		add(bg);
 		
-		stateMusic = new FlxSound();
-		if(songName != null) {
-			stateMusic.loadEmbedded(Paths.music(songName), true, true);
-		} else if (songName != 'None') {
-			stateMusic.loadEmbedded(Paths.music(Paths.formatToSongPath(ClientPrefs.stateMusic)), true, true);
-		}
-		stateMusic.volume = 0;
-		stateMusic.play(false, FlxG.random.int(0, Std.int(stateMusic.length / 2)));
-
-		FlxG.sound.list.add(stateMusic);
-
 		var exitButton:FlxButton = new FlxButton(FlxG.width - 200, 50, 'Exit', function()
 		{
 			MobileControls.mode = controlsItems[Math.floor(curSelected)];
@@ -157,9 +146,6 @@ class MobileControlsSubState extends FlxSubState
 	var cantUnpause:Float = 0.1;
 	override function update(elapsed:Float)
 	{
-		cantUnpause -= elapsed;
-		if (stateMusic.volume < 0.5)
-			stateMusic.volume += 0.01 * elapsed;
 		if (controls.UI_UP_P)
 		{
 			changeSelection(-1);
@@ -172,7 +158,6 @@ class MobileControlsSubState extends FlxSubState
 		if (controls.BACK #if mobile || FlxG.android.justReleased.BACK #end) {
 			close();
 			ClientPrefs.saveSettings();
-			FlxG.sound.play(Paths.sound('cancelMenu'));
 		}
 
 		super.update(elapsed);
