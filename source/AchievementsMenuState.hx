@@ -97,7 +97,7 @@ class AchievementsMenuState extends MusicBeatState
 		if (controls.BACK) {
 			FlxG.sound.play(Paths.sound('cancelMenu'));
 			MusicBeatState.switchState(new MainMenuState());
-			FlxTween.tween(virtualPad, {alpha: 0}, 1, {ease: FlxEase.circInOut});
+			FlxTween.tween(virtualPad, {alpha: 0.00001}, 1, {ease: FlxEase.circInOut});
 		}
 	}
 

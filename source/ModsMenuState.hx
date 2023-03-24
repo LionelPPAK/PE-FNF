@@ -505,7 +505,7 @@ class ModsMenuState extends MusicBeatState
 			else
 			{
 				MusicBeatState.switchState(new MainMenuState());
-				FlxTween.tween(virtualPad, {alpha: 0}, 1, {ease: FlxEase.circInOut});
+				FlxTween.tween(virtualPad, {alpha: 0.00001}, 1, {ease: FlxEase.circInOut});
 			}
 		}
 

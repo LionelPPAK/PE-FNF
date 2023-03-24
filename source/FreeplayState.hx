@@ -340,7 +340,7 @@ class FreeplayState extends MusicBeatState
 			}
 			FlxG.sound.play(Paths.sound('cancelMenu'));
 			MusicBeatState.switchState(new MainMenuState());
-			FlxTween.tween(virtualPad, {alpha: 0}, 1, {ease: FlxEase.circInOut});
+			FlxTween.tween(virtualPad, {alpha: 0.00001}, 1, {ease: FlxEase.circInOut});
 		}
 
 		if(ctrl)
@@ -407,7 +407,7 @@ class FreeplayState extends MusicBeatState
 				LoadingState.loadAndSwitchState(new ChartingState());
 			}else{
 				LoadingState.loadAndSwitchState(new PlayState());
-				FlxTween.tween(virtualPad, {alpha: 0}, 1, {ease: FlxEase.circInOut});
+				FlxTween.tween(virtualPad, {alpha: 0.00001}, 1, {ease: FlxEase.circInOut});
 			}
 
 			FlxG.sound.music.volume = 0;
