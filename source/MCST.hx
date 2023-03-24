@@ -152,8 +152,6 @@ class MobileControlsSubState extends FlxSubState
 		super.create();
 	}
 	
-	if (!blockInput)
-	{
 	    if (FlxG.keys.justPressed.ENTER #if mobile || FlxG.android.justReleased.BACK #end)
 			{
 				FlxG.mouse.visible = false;
