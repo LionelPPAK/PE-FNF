@@ -151,18 +151,6 @@ class MobileControlsSubState extends FlxSubState
 		
 		super.create();
 	}
-	
-	    if (FlxG.keys.justPressed.ENTER #if mobile || FlxG.android.justReleased.BACK #end)
-			{
-				FlxG.mouse.visible = false;
-				PlayState.SONG = _song;
-				FlxG.sound.music.stop();
-				if(vocals != null) vocals.stop();
-
-				//if(_song.stage == null) _song.stage = stageDropDown.selectedLabel;
-				StageData.loadDirectory(_song);
-				LoadingState.loadAndSwitchState(new PlayState());
-			}
 
 	var holdTime:Float = 0;
 	var cantUnpause:Float = 0.1;
@@ -171,9 +159,22 @@ class MobileControlsSubState extends FlxSubState
 		cantUnpause -= elapsed;
 		if (stateMusic.volume < 0.5)
 			stateMusic.volume += 0.01 * elapsed;
+		if (controls.UI_UP_P)
+		{
+			changeSelection(-1);
+		}
+		if (controls.UI_DOWN_P)
+		{
+			changeSelection(1);
+		}
+
+		if (controls.BACK #if mobile || FlxG.android.justReleased.BACK #end) {
+			close();
+			ClientPrefs.saveSettings();
+			FlxG.sound.play(Paths.sound('cancelMenu'));
+		}
 
 		super.update(elapsed);
-		updateSkipTextStuff();
 
 		for (touch in FlxG.touches.list)
 		{
