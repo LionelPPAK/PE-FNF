@@ -58,7 +58,6 @@ class MobileControlsSubState extends FlxSubState
 		FlxG.sound.list.add(stateMusic);
 
 		var exitButton:FlxButton = new FlxButton(FlxG.width - 200, 50, 'Exit', function()
-		MusicBeatState.switchState(new PauseSubState());
 		{
 			MobileControls.mode = controlsItems[Math.floor(curSelected)];
 
@@ -72,7 +71,7 @@ class MobileControlsSubState extends FlxSubState
 		exitButton.label.setFormat(Assets.getFont('assets/mobile/menu/vcr.ttf').fontName, 21, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE,
 			FlxColor.BLACK, true);
 		exitButton.color = FlxColor.LIME;
-		add(exitButton);
+		//add(exitButton);
 
 		resetButton = new FlxButton(exitButton.x, exitButton.y + 100, 'Reset', function()
 		{
@@ -147,9 +146,25 @@ class MobileControlsSubState extends FlxSubState
 		add(upPosition);
 
 		changeSelection();
-
+		
+		FlxG.mouse.visible = true;
+		
 		super.create();
 	}
+	
+	if (!blockInput)
+	{
+	    if (FlxG.keys.justPressed.ENTER #if mobile || FlxG.android.justReleased.BACK #end)
+			{
+				FlxG.mouse.visible = false;
+				PlayState.SONG = _song;
+				FlxG.sound.music.stop();
+				if(vocals != null) vocals.stop();
+
+				//if(_song.stage == null) _song.stage = stageDropDown.selectedLabel;
+				StageData.loadDirectory(_song);
+				LoadingState.loadAndSwitchState(new PlayState());
+			}
 
 	var holdTime:Float = 0;
 	var cantUnpause:Float = 0.1;
