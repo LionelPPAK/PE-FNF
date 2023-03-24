@@ -13,6 +13,7 @@ import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.math.FlxMath;
 import flixel.text.FlxText;
 import flixel.util.FlxColor;
+import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import lime.utils.Assets;
 import flixel.system.FlxSound;
@@ -381,7 +382,7 @@ class ModsMenuState extends MusicBeatState
 		addVirtualPad(UP_DOWN, A_B);
 		addVirtualPadCamera();
 		virtualPad.alpha = 0;
-		#en
+		#end
 		
 		super.create();
 		
