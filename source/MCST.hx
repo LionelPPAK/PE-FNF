@@ -163,7 +163,6 @@ class MCST extends FlxSubState
 			StageData.loadDirectory(_song);
 			LoadingState.loadAndSwitchState(new PlayState());
 			}
-		}
 
 		for (touch in FlxG.touches.list)
 		{
