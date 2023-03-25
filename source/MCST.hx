@@ -39,7 +39,7 @@ class MCST extends FlxSubState
 	override function create()
 	{
 		for (i in 0...controlsItems.length)
-			if (controlsItems[i] == MobileControls.mode)
+			if (controlsItems[i] == mobile.MobileControls.mode)
 				curSelected = i;
 
 		var bg:FlxSprite = new FlxSprite(0, 0).makeGraphic(FlxG.width, FlxG.height, FlxColor.fromRGB(FlxG.random.int(0, 255), FlxG.random.int(0, 255), FlxG.random.int(0, 255)));
@@ -49,10 +49,10 @@ class MCST extends FlxSubState
 		
 		var exitButton:FlxButton = new FlxButton(FlxG.width - 200, 50, 'Exit', function()
 		{
-			MobileControls.mode = controlsItems[Math.floor(curSelected)];
+			mobile.MobileControls.mode = controlsItems[Math.floor(curSelected)];
 
 			if (controlsItems[Math.floor(curSelected)] == 'Pad-Custom')
-				MobileControls.customVirtualPad = virtualPad;
+				mobile.MobileControls.customVirtualPad = virtualPad;
 
 			FlxTransitionableState.skipNextTransOut = true;
 			FlxG.resetState();
@@ -158,12 +158,31 @@ class MCST extends FlxSubState
 			close();
 			PlayState.SONG = _song;
 			ClientPrefs.saveSettings();
-			
+			FlxG.mouse.visible = false;
 			//if(_song.stage == null) _song.stage = stageDropDown.selectedLabel;
 			StageData.loadDirectory(_song);
 			LoadingState.loadAndSwitchState(new PlayState());
 			}
 
+	function changeSelection(change:Int = 0) {
+		curSelected += change;
+		if (curSelected < 0)
+			curSelected = options.length - 1;
+		if (curSelected >= options.length)
+			curSelected = 0;
+
+		var bullShit:Int = 0;
+
+		for (item in grpOptions.members) {
+			item.targetY = bullShit - curSelected;
+			bullShit++;
+
+			item.alpha = 0.6;
+			if (item.targetY == 0) {
+				item.alpha = 1;
+			}
+		}
+		
 		for (touch in FlxG.touches.list)
 		{
 			if (touch.overlaps(leftArrow) && touch.justPressed)
