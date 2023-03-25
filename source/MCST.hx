@@ -143,14 +143,14 @@ class MCST extends FlxSubState
 	}
 	
 	#if control back
-	var back = FlxG.keys.justPressed.BACKSPACE #if mobile || FlxG.android.justReleased.BACK #end;
+	var space = FlxG.keys.justPressed.SPACE #if mobile || FlxG.android.justReleased.BACK #end;
 	#end
 	var holdTime:Float = 0;
 	var cantUnpause:Float = 0.1;
 	override function update(elapsed:Float) {
 	    super.update(elapsed);
 	
-		if(back)
+		if(space)
 		{
 		MusicBeatState.switchState(new PauseSubState());
 		}
