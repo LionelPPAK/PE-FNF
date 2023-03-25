@@ -145,25 +145,15 @@ class MCST extends FlxSubState
 	var holdTime:Float = 0;
 	var cantUnpause:Float = 0.1;
 	override function update(elapsed:Float) {
-		super.update(elapsed);
-
-		if (controls.UI_UP_P) {
-			changeSelection(-1);
-		}
-		if (controls.UI_DOWN_P) {
-			changeSelection(1);
-		}
-
-		if (controls.BACK #if mobile || FlxG.android.justReleased.BACK #end) {
-			close();
-			PlayState.SONG = _song;
-			ClientPrefs.saveSettings();
-			FlxG.mouse.visible = false;
-			//if(_song.stage == null) _song.stage = stageDropDown.selectedLabel;
-			StageData.loadDirectory(_song);
-			LoadingState.loadAndSwitchState(new PlayState());
-			}
+	    super.update(elapsed);
 		
+	var back = FlxG.keys.justPressed.BACKSPACE #if mobile || FlxG.android.justReleased.BACK #end;
+	
+		if(back)
+		{
+		persistentUpdate = false;
+		openSubState(new PauseSubState());
+		}
 		for (touch in FlxG.touches.list)
 		{
 			if (touch.overlaps(leftArrow) && touch.justPressed)
@@ -213,24 +203,14 @@ class MCST extends FlxSubState
 		}
 	}
 
-	function changeSelection(change:Int = 0) {
+	private function changeSelection(change:Int = 0):Void
+	{
 		curSelected += change;
+
 		if (curSelected < 0)
-			curSelected = options.length - 1;
-		if (curSelected >= options.length)
+			curSelected = controlsItems.length - 1;
+		else if (curSelected >= controlsItems.length)
 			curSelected = 0;
-
-		var bullShit:Int = 0;
-
-		for (item in grpOptions.members) {
-			item.targetY = bullShit - curSelected;
-			bullShit++;
-
-			item.alpha = 0.6;
-			if (item.targetY == 0) {
-				item.alpha = 1;
-			}
-		}
 
 		grpControls.text = controlsItems[Math.floor(curSelected)];
 		grpControls.screenCenter(X);
