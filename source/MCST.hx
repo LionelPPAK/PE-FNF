@@ -141,18 +141,18 @@ class MCST extends FlxSubState
 		
 		super.create();
 	}
-
+	
+	#if control back
+	var back = FlxG.keys.justPressed.BACKSPACE #if mobile || FlxG.android.justReleased.BACK #end;
+	#end
 	var holdTime:Float = 0;
 	var cantUnpause:Float = 0.1;
 	override function update(elapsed:Float) {
 	    super.update(elapsed);
-		
-	var back = FlxG.keys.justPressed.BACKSPACE #if mobile || FlxG.android.justReleased.BACK #end;
 	
 		if(back)
 		{
-		persistentUpdate = false;
-		openSubState(new PauseSubState());
+		MusicBeatState.switchState(new PauseSubState());
 		}
 		for (touch in FlxG.touches.list)
 		{
