@@ -163,25 +163,6 @@ class MCST extends FlxSubState
 			StageData.loadDirectory(_song);
 			LoadingState.loadAndSwitchState(new PlayState());
 			}
-
-	function changeSelection(change:Int = 0) {
-		curSelected += change;
-		if (curSelected < 0)
-			curSelected = options.length - 1;
-		if (curSelected >= options.length)
-			curSelected = 0;
-
-		var bullShit:Int = 0;
-
-		for (item in grpOptions.members) {
-			item.targetY = bullShit - curSelected;
-			bullShit++;
-
-			item.alpha = 0.6;
-			if (item.targetY == 0) {
-				item.alpha = 1;
-			}
-		}
 		
 		for (touch in FlxG.touches.list)
 		{
@@ -232,14 +213,24 @@ class MCST extends FlxSubState
 		}
 	}
 
-	private function changeSelection(change:Int = 0):Void
-	{
+	function changeSelection(change:Int = 0) {
 		curSelected += change;
-
 		if (curSelected < 0)
-			curSelected = controlsItems.length - 1;
-		else if (curSelected >= controlsItems.length)
+			curSelected = options.length - 1;
+		if (curSelected >= options.length)
 			curSelected = 0;
+
+		var bullShit:Int = 0;
+
+		for (item in grpOptions.members) {
+			item.targetY = bullShit - curSelected;
+			bullShit++;
+
+			item.alpha = 0.6;
+			if (item.targetY == 0) {
+				item.alpha = 1;
+			}
+		}
 
 		grpControls.text = controlsItems[Math.floor(curSelected)];
 		grpControls.screenCenter(X);
