@@ -67,7 +67,7 @@ class MCST extends FlxSubState
 		{
 			if (controlsItems[Math.floor(curSelected)] == 'Pad-Custom' && resetButton.visible) // being sure about something
 			{
-				MobileControls.customVirtualPad = new FlxVirtualPad(RIGHT_FULL, NONE);
+				mobile.MobileControls.customVirtualPad = new FlxVirtualPad(RIGHT_FULL, NONE);
 				reloadMobileControls('Pad-Custom');
 			}
 		});
@@ -144,23 +144,26 @@ class MCST extends FlxSubState
 
 	var holdTime:Float = 0;
 	var cantUnpause:Float = 0.1;
-	override function update(elapsed:Float)
-	{
-		if (controls.UI_UP_P)
-		{
+	override function update(elapsed:Float) {
+		super.update(elapsed);
+
+		if (controls.UI_UP_P) {
 			changeSelection(-1);
 		}
-		if (controls.UI_DOWN_P)
-		{
+		if (controls.UI_DOWN_P) {
 			changeSelection(1);
 		}
 
 		if (controls.BACK #if mobile || FlxG.android.justReleased.BACK #end) {
 			close();
+			PlayState.SONG = _song;
 			ClientPrefs.saveSettings();
+			
+			//if(_song.stage == null) _song.stage = stageDropDown.selectedLabel;
+			StageData.loadDirectory(_song);
+			LoadingState.loadAndSwitchState(new PlayState());
+			}
 		}
-
-		super.update(elapsed);
 
 		for (touch in FlxG.touches.list)
 		{
@@ -262,7 +265,7 @@ class MCST extends FlxSubState
 				add(virtualPad);
 			case 'Pad-Custom':
 				removeControls();
-				virtualPad = MobileControls.customVirtualPad;
+				virtualPad = mobile.MobileControls.customVirtualPad;
 				add(virtualPad);
 			case 'Pad-Duo':
 				removeControls();
