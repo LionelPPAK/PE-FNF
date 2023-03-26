@@ -3,6 +3,7 @@ package;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxSubState;
+import Song.SwagSong;
 import flixel.addons.display.FlxGridOverlay;
 import flixel.addons.transition.FlxTransitionableState;
 import flixel.graphics.frames.FlxAtlasFrames;
@@ -62,8 +63,12 @@ class MCST extends FlxSubState
 			FlxTransitionableState.skipNextTransOut = true;
 			FlxG.resetState();
 			FlxG.mouse.visible = false;
-			autosaveSong();
-			LoadingState.loadAndSwitchState(new editors.EditorPlayState(sectionStartTime()));
+			PlayState.SONG = _song;
+			FlxG.sound.music.stop();
+			if(vocals != null) vocals.stop();
+			StageData.loadDirectory(_song);
+			LoadingState.loadAndSwitchState(new PlayState());
+			}
 		});
 		exitButton.setGraphicSize(Std.int(exitButton.width) * 3);
 		exitButton.label.setFormat(Assets.getFont('assets/mobile/menu/vcr.ttf').fontName, 21, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE,
