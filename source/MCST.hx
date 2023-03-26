@@ -61,12 +61,8 @@ class MCST extends FlxSubState
 
 			FlxTransitionableState.skipNextTransOut = true;
 			FlxG.resetState();
-			autosaveSong();
 			FlxG.mouse.visible = false;
-			PlayState.SONG = _song;
 			FlxG.sound.music.stop();
-			if(vocals != null) vocals.stop();
-			StageData.loadDirectory(_song);
 			LoadingState.loadAndSwitchState(new PlayState());
 		});
 		exitButton.setGraphicSize(Std.int(exitButton.width) * 3);
