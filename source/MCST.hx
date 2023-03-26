@@ -9,6 +9,7 @@ import flixel.FlxSprite;
 import flixel.FlxSubState;
 import flixel.addons.display.FlxGridOverlay;
 import flixel.addons.transition.FlxTransitionableState;
+import flixel.graphics.frames.FlxAtlasFrames;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.input.touch.FlxTouch;
 import flixel.math.FlxMath;
@@ -28,7 +29,10 @@ import openfl.utils.Assets;
 class MCST extends FlxSubState
 {
 	private final controlsItems:Array<String> = ['Pad-Right', 'Pad-Left', 'Pad-Custom', 'Pad-Duo', 'Hitbox', 'Keyboard'];
-
+	
+	#if control back
+	var space = FlxG.keys.justPressed.SPACE #if mobile || FlxG.android.justReleased.BACK #end;
+	#end
 	private var virtualPad:FlxVirtualPad;
 	private var hitbox:FlxHitbox;
 	private var upPosition:FlxText;
@@ -150,9 +154,6 @@ class MCST extends FlxSubState
 		super.create();
 	}
 	
-	#if control back
-	var space = FlxG.keys.justPressed.SPACE #if mobile || FlxG.android.justReleased.BACK #end;
-	#end
 	var holdTime:Float = 0;
 	var cantUnpause:Float = 0.1;
 	override function update(elapsed:Float) {
