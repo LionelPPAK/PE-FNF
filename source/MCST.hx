@@ -1,9 +1,5 @@
 package;
 
-#if desktop
-import Discord.DiscordClient;
-#end
-import flash.text.TextField;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxSubState;
@@ -30,9 +26,6 @@ class MCST extends FlxSubState
 {
 	private final controlsItems:Array<String> = ['Pad-Right', 'Pad-Left', 'Pad-Custom', 'Pad-Duo', 'Hitbox', 'Keyboard'];
 	
-	#if control back
-	var space = FlxG.keys.justPressed.SPACE #if mobile || FlxG.android.justReleased.BACK #end;
-	#end
 	private var virtualPad:FlxVirtualPad;
 	private var hitbox:FlxHitbox;
 	private var upPosition:FlxText;
@@ -68,12 +61,13 @@ class MCST extends FlxSubState
 
 			FlxTransitionableState.skipNextTransOut = true;
 			FlxG.resetState();
+			MusicBeatState.switchState(new PlayState());
 		});
 		exitButton.setGraphicSize(Std.int(exitButton.width) * 3);
 		exitButton.label.setFormat(Assets.getFont('assets/mobile/menu/vcr.ttf').fontName, 21, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE,
 			FlxColor.BLACK, true);
 		exitButton.color = FlxColor.LIME;
-		//add(exitButton);
+		add(exitButton);
 
 		resetButton = new FlxButton(exitButton.x, exitButton.y + 100, 'Reset', function()
 		{
@@ -159,10 +153,6 @@ class MCST extends FlxSubState
 	override function update(elapsed:Float) {
 	    super.update(elapsed);
 	
-		if(space)
-		{
-		MusicBeatState.switchState(new PauseSubState());
-		}
 		for (touch in FlxG.touches.list)
 		{
 			if (touch.overlaps(leftArrow) && touch.justPressed)
