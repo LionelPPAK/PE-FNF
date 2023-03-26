@@ -264,7 +264,9 @@ class PauseSubState extends MusicBeatSubstate
 					PlayState.instance.botplayTxt.alpha = 1;
 					PlayState.instance.botplaySine = 0;
 				case "Mobile Controls Editor":
-					MusicBeatState.switchState(new MCST());
+				PlayState.deathCounter = 0;
+				PlayState.seenCutscene = false;
+				MusicBeatState.switchState(new MCST());
 				case "Charting Editor":
 					MusicBeatState.switchState(new editors.ChartingState());
 					PlayState.chartingMode = true;
