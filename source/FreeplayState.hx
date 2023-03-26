@@ -92,7 +92,6 @@ class FreeplayState extends MusicBeatState
 		WeekData.loadTheFirstEnabledMod();
 
 		/*		//KIND OF BROKEN NOW AND ALSO PRETTY USELESS//
-
 		var initSonglist = CoolUtil.coolTextFile(Paths.txt('freeplaySonglist'));
 		for (i in 0...initSonglist.length)
 		{
@@ -169,17 +168,13 @@ class FreeplayState extends MusicBeatState
 		// JUST DOIN THIS SHIT FOR TESTING!!!
 		/* 
 			var md:String = Markdown.markdownToHtml(Assets.getText('CHANGELOG.md'));
-
 			var texFel:TextField = new TextField();
 			texFel.width = FlxG.width;
 			texFel.height = FlxG.height;
 			// texFel.
 			texFel.htmlText = md;
-
 			FlxG.stage.addChild(texFel);
-
 			// scoreText.textField.htmlText = md;
-
 			trace(md);
 		 */
 
@@ -218,7 +213,7 @@ class FreeplayState extends MusicBeatState
 		
 		super.create();
 		
-		FlxTween.tween(virtualPad, {alpha: 1}, 1, {ease: FlxEase.circInOut});
+		FlxTween.tween(virtualPad, {alpha: 0.6}, 1, {ease: FlxEase.circInOut});
 	}
 
 	override function closeSubState() {
@@ -241,13 +236,11 @@ class FreeplayState extends MusicBeatState
 	{
 		if (songCharacters == null)
 			songCharacters = ['bf'];
-
 		var num:Int = 0;
 		for (song in songs)
 		{
 			addSong(song, weekNum, songCharacters[num]);
 			this.songs[this.songs.length-1].color = weekColor;
-
 			if (songCharacters.length != 1)
 				num++;
 		}

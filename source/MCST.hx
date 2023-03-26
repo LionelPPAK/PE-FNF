@@ -61,13 +61,19 @@ class MCST extends FlxSubState
 
 			FlxTransitionableState.skipNextTransOut = true;
 			FlxG.resetState();
-			MusicBeatState.switchState(new PlayState());
+			autosaveSong();
+			FlxG.mouse.visible = false;
+			PlayState.SONG = _song;
+			FlxG.sound.music.stop();
+			if(vocals != null) vocals.stop();
+			StageData.loadDirectory(_song);
+			LoadingState.loadAndSwitchState(new PlayState());
+			}
 		});
 		exitButton.setGraphicSize(Std.int(exitButton.width) * 3);
 		exitButton.label.setFormat(Assets.getFont('assets/mobile/menu/vcr.ttf').fontName, 21, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE,
 			FlxColor.BLACK, true);
 		exitButton.color = FlxColor.LIME;
-		add(exitButton);
 
 		resetButton = new FlxButton(exitButton.x, exitButton.y + 100, 'Reset', function()
 		{
@@ -140,7 +146,8 @@ class MCST extends FlxSubState
 		upPosition.borderSize = 3;
 		upPosition.borderQuality = 1;
 		add(upPosition);
-
+		
+		add(exitButton);
 		changeSelection();
 		
 		FlxG.mouse.visible = true;

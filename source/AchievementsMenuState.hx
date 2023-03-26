@@ -81,7 +81,7 @@ class AchievementsMenuState extends MusicBeatState
 
 		super.create();
 		
-		FlxTween.tween(virtualPad, {alpha: 1}, 1, {ease: FlxEase.circInOut});
+		FlxTween.tween(virtualPad, {alpha: 0.6}, 1, {ease: FlxEase.circInOut});
 	}
 
 	override function update(elapsed:Float) {

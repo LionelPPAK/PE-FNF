@@ -60,7 +60,6 @@ class StoryMenuState extends MusicBeatState
 		
 		if(curWeek >= WeekData.weeksList.length) curWeek = 0;
 		persistentUpdate = persistentDraw = true;
-		FlxTween.tween(virtualPad, {alpha: 1}, 1, {ease: FlxEase.circInOut});
 		
 		scoreText = new FlxText(10, 10, 0, "SCORE: 49324858", 36);
 		scoreText.setFormat("VCR OSD Mono", 32);
@@ -191,12 +190,12 @@ class StoryMenuState extends MusicBeatState
 		#if mobile
 		addVirtualPad(LEFT_FULL, A_B_X_Y);
 		addVirtualPadCamera();
-		virtualPad.alpha = 0.00001;
+		virtualPad.alpha = 0;
 		#end
 
 		super.create();
 		
-		FlxTween.tween(virtualPad, {alpha: 1}, 1, {ease: FlxEase.circInOut});
+		FlxTween.tween(virtualPad, {alpha: 0.6}, 1, {ease: FlxEase.circInOut});
 	}
 
 	override function closeSubState() {
@@ -283,7 +282,7 @@ class StoryMenuState extends MusicBeatState
 			FlxG.sound.play(Paths.sound('cancelMenu'));
 			movedBack = true;
 			MusicBeatState.switchState(new MainMenuState());
-			FlxTween.tween(virtualPad, {alpha: 0.00001}, 1, {ease: FlxEase.circInOut});
+			FlxTween.tween(virtualPad, {alpha: 0}, 1, {ease: FlxEase.circInOut});
 		}
 
 		super.update(elapsed);
@@ -343,7 +342,7 @@ class StoryMenuState extends MusicBeatState
 			{
 				LoadingState.loadAndSwitchState(new PlayState(), true);
 				FreeplayState.destroyFreeplayVocals();
-				FlxTween.tween(virtualPad, {alpha: 0.00001}, 1, {ease: FlxEase.circInOut});
+				FlxTween.tween(virtualPad, {alpha: 0}, 1, {ease: FlxEase.circInOut});
 			});
 		} else {
 			FlxG.sound.play(Paths.sound('cancelMenu'));
