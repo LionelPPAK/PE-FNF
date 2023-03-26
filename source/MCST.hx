@@ -68,7 +68,6 @@ class MCST extends FlxSubState
 			if(vocals != null) vocals.stop();
 			StageData.loadDirectory(_song);
 			LoadingState.loadAndSwitchState(new PlayState());
-			}
 		});
 		exitButton.setGraphicSize(Std.int(exitButton.width) * 3);
 		exitButton.label.setFormat(Assets.getFont('assets/mobile/menu/vcr.ttf').fontName, 21, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE,
