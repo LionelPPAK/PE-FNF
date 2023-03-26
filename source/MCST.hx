@@ -83,6 +83,7 @@ class MCST extends FlxSubState
 				reloadMobileControls('Pad-Custom');
 			}
 		});
+    }
 		resetButton.setGraphicSize(Std.int(resetButton.width) * 3);
 		resetButton.label.setFormat(Assets.getFont('assets/mobile/menu/vcr.ttf').fontName, 21, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE,
 			FlxColor.BLACK, true);
