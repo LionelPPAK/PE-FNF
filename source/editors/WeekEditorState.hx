@@ -114,8 +114,16 @@ class WeekEditorState extends MusicBeatState
 		reloadAllShit();
 
 		FlxG.mouse.visible = true;
-
+		
+		#if mobile
+		addVirtualPad(NONE, A);
+		addVirtualPadCamera();
+		virtualPad.y = 0;
+		#end
+		
 		super.create();
+		
+		FlxTween.tween(virtualPad, {alpha: 0.6}, 1, {ease: FlxEase.circInOut});
 	}
 
 	var UI_box:FlxUITabMenu;
@@ -436,7 +444,7 @@ class WeekEditorState extends MusicBeatState
 				FlxG.sound.volumeUpKeys = [];
 				blockInput = true;
 
-				if(FlxG.keys.justPressed.ENTER) inputText.hasFocus = false;
+				if(FlxG.keys.justPressed.ENTER #if mobile || virtualPad.buttonA.pressed #end) inputText.hasFocus = false;
 				break;
 			}
 		}
@@ -445,9 +453,10 @@ class WeekEditorState extends MusicBeatState
 			FlxG.sound.muteKeys = TitleState.muteKeys;
 			FlxG.sound.volumeDownKeys = TitleState.volumeDownKeys;
 			FlxG.sound.volumeUpKeys = TitleState.volumeUpKeys;
-			if(FlxG.keys.justPressed.ESCAPE) {
+			if(FlxG.keys.justPressed.ESCAPE #if mobile || FlxG.android.justReleased.BACK #end) {
 				MusicBeatState.switchState(new editors.MasterEditorMenu());
 				FlxG.sound.playMusic(Paths.music('freakyMenu'));
+				FlxTween.tween(virtualPad, {alpha: 0}, 1, {ease: FlxEase.circInOut});
 			}
 		}
 
@@ -801,16 +810,17 @@ class WeekEditorFreeplayState extends MusicBeatState
 			FlxG.sound.muteKeys = [];
 			FlxG.sound.volumeDownKeys = [];
 			FlxG.sound.volumeUpKeys = [];
-			if(FlxG.keys.justPressed.ENTER) {
+			if(FlxG.keys.justPressed.ENTER #if mobile || virtualPad.buttonA.pressed #end) {
 				iconInputText.hasFocus = false;
 			}
 		} else {
 			FlxG.sound.muteKeys = TitleState.muteKeys;
 			FlxG.sound.volumeDownKeys = TitleState.volumeDownKeys;
 			FlxG.sound.volumeUpKeys = TitleState.volumeUpKeys;
-			if(FlxG.keys.justPressed.ESCAPE) {
+			if(FlxG.keys.justPressed.ESCAPE #if mobile || FlxG.android.justReleased.BACK #end) {
 				MusicBeatState.switchState(new editors.MasterEditorMenu());
 				FlxG.sound.playMusic(Paths.music('freakyMenu'));
+				FlxTween.tween(virtualPad, {alpha: 0}, 1, {ease: FlxEase.circInOut});
 			}
 
 			if(controls.UI_UP_P) changeSelection(-1);

@@ -105,7 +105,16 @@ class DialogueEditorState extends MusicBeatState
 		daText.scaleY = 0.7;
 		add(daText);
 		changeText();
+		
+		#if mobile
+		addVirtualPad(NONE, A_B);
+		addVirtualPadCamera();
+		virtualPad.y = 0;
+		#end
+		
 		super.create();
+		
+		FlxTween.tween(virtualPad, {alpha: 0.6}, 1, {ease: FlxEase.circInOut});
 	}
 
 	var UI_box:FlxUITabMenu;
@@ -336,7 +345,7 @@ class DialogueEditorState extends MusicBeatState
 				FlxG.sound.volumeUpKeys = [];
 				blockInput = true;
 
-				if(FlxG.keys.justPressed.ENTER) {
+				if(FlxG.keys.justPressed.ENTER #if mobile || virtualPad.buttonA.pressed #end) {
 					if(inputText == lineInputText) {
 						inputText.text += '\\n';
 						inputText.caretIndex += 2;
@@ -352,13 +361,14 @@ class DialogueEditorState extends MusicBeatState
 			FlxG.sound.muteKeys = TitleState.muteKeys;
 			FlxG.sound.volumeDownKeys = TitleState.volumeDownKeys;
 			FlxG.sound.volumeUpKeys = TitleState.volumeUpKeys;
-			if(FlxG.keys.justPressed.SPACE) {
+			if(FlxG.keys.justPressed.SPACE #if mobile || virtualPad.buttonB.pressed #end) {
 				reloadText(false);
 			}
-			if(FlxG.keys.justPressed.ESCAPE) {
+			if(FlxG.keys.justPressed.ESCAPE #if mobile || FlxG.android.justReleased.BACK #end) {
 				MusicBeatState.switchState(new editors.MasterEditorMenu());
 				FlxG.sound.playMusic(Paths.music('freakyMenu'), 1);
 				transitioning = true;
+				FlxTween.tween(virtualPad, {alpha: 0}, 1, {ease: FlxEase.circInOut});
 			}
 			var negaMult:Array<Int> = [1, -1];
 			var controlAnim:Array<Bool> = [FlxG.keys.justPressed.W, FlxG.keys.justPressed.S];

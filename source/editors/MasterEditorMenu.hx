@@ -32,6 +32,7 @@ class MasterEditorMenu extends MusicBeatState
 	private var directories:Array<String> = [null];
 
 	private var curSelected = 0;
+	// private var pabloTemazos = Bool;
 	private var curDirectory = 0;
 	private var directoryTxt:FlxText;
 
@@ -86,9 +87,13 @@ class MasterEditorMenu extends MusicBeatState
 		#if mobile
 		addVirtualPad(LEFT_FULL, A_B);
 		addVirtualPadCamera();
+		virtualPad.y = -26;
+		virtualPad.alpha = 0;
 		#end
 		
 		super.create();
+		
+		FlxTween.tween(virtualPad, {alpha: 0.6}, 1, {ease: FlxEase.circInOut});
 	}
 
 	override function update(elapsed:Float)
@@ -114,6 +119,7 @@ class MasterEditorMenu extends MusicBeatState
 
 		if (controls.BACK)
 		{
+		    FlxTween.tween(virtualPad, {alpha: 0}, 1, {ease: FlxEase.circInOut});
 			MusicBeatState.switchState(new MainMenuState());
 		}
 
@@ -122,16 +128,22 @@ class MasterEditorMenu extends MusicBeatState
 			switch(options[curSelected]) {
 				case 'Character Editor':
 					LoadingState.loadAndSwitchState(new CharacterEditorState(Character.DEFAULT_CHARACTER, false));
+					FlxTween.tween(virtualPad, {alpha: 0}, 1, {ease: FlxEase.circInOut});
 				case 'Week Editor':
 					MusicBeatState.switchState(new WeekEditorState());
+					FlxTween.tween(virtualPad, {alpha: 0}, 1, {ease: FlxEase.circInOut});
 				case 'Menu Character Editor':
 					MusicBeatState.switchState(new MenuCharacterEditorState());
+					FlxTween.tween(virtualPad, {alpha: 0}, 1, {ease: FlxEase.circInOut});
 				case 'Dialogue Portrait Editor':
 					LoadingState.loadAndSwitchState(new DialogueCharacterEditorState(), false);
+					FlxTween.tween(virtualPad, {alpha: 0}, 1, {ease: FlxEase.circInOut});
 				case 'Dialogue Editor':
 					LoadingState.loadAndSwitchState(new DialogueEditorState(), false);
+					FlxTween.tween(virtualPad, {alpha: 0}, 1, {ease: FlxEase.circInOut});
 				case 'Chart Editor'://felt it would be cool maybe
 					LoadingState.loadAndSwitchState(new ChartingState(), false);
+					FlxTween.tween(virtualPad, {alpha: 0}, 1, {ease: FlxEase.circInOut});
 			}
 			FlxG.sound.music.volume = 0;
 			#if PRELOAD_ALL

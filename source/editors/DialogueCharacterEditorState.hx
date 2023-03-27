@@ -162,7 +162,14 @@ class DialogueCharacterEditorState extends MusicBeatState
 		FlxG.mouse.visible = true;
 		updateCharTypeBox();
 		
+		#if mobile
+		addVirtualPad(UP_DOWN, A_B);
+		addVirtualPadCamera();
+		virtualPad.y = 0;
+		
 		super.create();
+		
+		FlxTween.tween(virtualPad, {alpha: 0.6}, 1, {ease: FlxEase.circInOut});
 	}
 
 	var UI_typebox:FlxUITabMenu;
@@ -520,7 +527,7 @@ class DialogueCharacterEditorState extends MusicBeatState
 				FlxG.sound.volumeUpKeys = [];
 				blockInput = true;
 
-				if(FlxG.keys.justPressed.ENTER) inputText.hasFocus = false;
+				if(FlxG.keys.justPressed.ENTER #if mobile || virtualPad.buttonA.pressed #end) inputText.hasFocus = false;
 				break;
 			}
 		}
@@ -529,7 +536,7 @@ class DialogueCharacterEditorState extends MusicBeatState
 			FlxG.sound.muteKeys = TitleState.muteKeys;
 			FlxG.sound.volumeDownKeys = TitleState.volumeDownKeys;
 			FlxG.sound.volumeUpKeys = TitleState.volumeUpKeys;
-			if(FlxG.keys.justPressed.SPACE && UI_mainbox.selected_tab_id == 'Character') {
+			if(FlxG.keys.justPressed.SPACE #if mobile || virtualPad.buttonB.pressed #end&& UI_mainbox.selected_tab_id == 'Character') {
 				character.playAnim(character.jsonFile.animations[curAnim].anim);
 				daText.resetDialogue();
 				updateTextBox();
@@ -652,7 +659,7 @@ class DialogueCharacterEditorState extends MusicBeatState
 			if(UI_mainbox.selected_tab_id == 'Character')
 			{
 				var negaMult:Array<Int> = [1, -1];
-				var controlAnim:Array<Bool> = [FlxG.keys.justPressed.W, FlxG.keys.justPressed.S];
+				var controlAnim:Array<Bool> = [FlxG.keys.justPressed.W, FlxG.keys.justPressed.S #if mobile || virtualPad.buttonUp.pressed || virtualPad.buttonDown.pressed #end];
 
 				if(controlAnim.contains(true))
 				{
@@ -672,10 +679,11 @@ class DialogueCharacterEditorState extends MusicBeatState
 				}
 			}
 
-			if(FlxG.keys.justPressed.ESCAPE) {
+			if(FlxG.keys.justPressed.ESCAPE #if mobile || FlxG.android.justReleased.BACK #end) {
 				MusicBeatState.switchState(new editors.MasterEditorMenu());
 				FlxG.sound.playMusic(Paths.music('freakyMenu'), 1);
 				transitioning = true;
+				FlxTween.tween(virtualPad, {alpha: 0}, 1, {ease: FlxEase.circInOut});
 			}
 
 			ghostLoop.setPosition(character.x, character.y);

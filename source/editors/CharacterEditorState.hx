@@ -1050,7 +1050,7 @@ class CharacterEditorState extends MusicBeatState
 
 		#if MODS_ALLOWED
 		characterList = [];
-		var directories:Array<String> = [Paths.mods('characters/'), Paths.mods(Paths.currentModDirectory + '/characters/'), Paths.getPreloadPath('characters/')];
+		var directories:Array<String> = [Paths.mods('characters/'), Paths.mods(Paths.currentModDirectory + '/characters/'), SUtil.getPath() + Paths.getPreloadPath('characters/')];
 		for(mod in Paths.getGlobalMods())
 			directories.push(Paths.mods(mod + '/characters/'));
 		for (i in 0...directories.length) {
@@ -1069,7 +1069,7 @@ class CharacterEditorState extends MusicBeatState
 			}
 		}
 		#else
-		characterList = CoolUtil.coolTextFile(Paths.txt('characterList'));
+		characterList = CoolUtil.coolTextFile(SUtil.getPath() + Paths.txt('characterList'));
 		#end
 
 		charDropDown.setData(FlxUIDropDownMenuCustom.makeStrIdLabelArray(characterList, true));
@@ -1119,7 +1119,7 @@ class CharacterEditorState extends MusicBeatState
 		FlxG.sound.volumeUpKeys = TitleState.volumeUpKeys;
 
 		if(!charDropDown.dropPanel.visible) {
-			if (FlxG.keys.justPressed.ESCAPE) {
+			if (FlxG.keys.justPressed.ESCAPE #if mobile || FlxG.android.justReleased.BACK #end) {
 				if(goToPlayState) {
 					MusicBeatState.switchState(new PlayState());
 				} else {
@@ -1130,15 +1130,15 @@ class CharacterEditorState extends MusicBeatState
 				return;
 			}
 
-			if (FlxG.keys.justPressed.R) {
+			if (FlxG.keys.justPressed.R #if mobile || virtualPad.buttonZ.pressed #end) {
 				FlxG.camera.zoom = 1;
 			}
 
-			if (FlxG.keys.pressed.E && FlxG.camera.zoom < 3) {
+			if (FlxG.keys.pressed.E #if mobile || virtualPad.buttonX.pressed #end&& FlxG.camera.zoom < 3) {
 				FlxG.camera.zoom += elapsed * FlxG.camera.zoom;
 				if(FlxG.camera.zoom > 3) FlxG.camera.zoom = 3;
 			}
-			if (FlxG.keys.pressed.Q && FlxG.camera.zoom > 0.1) {
+			if (FlxG.keys.pressed.Q #if mobile || virtualPad.buttonY.pressed #end && FlxG.camera.zoom > 0.1) {
 				FlxG.camera.zoom -= elapsed * FlxG.camera.zoom;
 				if(FlxG.camera.zoom < 0.1) FlxG.camera.zoom = 0.1;
 			}
