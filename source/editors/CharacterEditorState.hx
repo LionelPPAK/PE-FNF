@@ -24,6 +24,9 @@ import flixel.addons.ui.FlxUINumericStepper;
 import flixel.addons.ui.FlxUITabMenu;
 import flixel.addons.ui.FlxUITooltip.FlxUITooltipStyle;
 import flixel.ui.FlxButton;
+#if mobile
+import mobile.flixel.FlxButton;
+#end
 import flixel.ui.FlxSpriteButton;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;

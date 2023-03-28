@@ -20,6 +20,9 @@ import flixel.addons.ui.FlxUIInputText;
 import flixel.addons.ui.FlxUINumericStepper;
 import flixel.addons.ui.FlxUITabMenu;
 import flixel.ui.FlxButton;
+#if mobile
+import mobile.flixel.FlxButton;
+#end
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import MenuCharacter;
@@ -84,7 +87,7 @@ class MenuCharacterEditorState extends MusicBeatState
 		updateCharTypeBox();
 		
 		#if mobile
-		addVirtualPad(LEFT_FULL, A_B);
+		addVirtualPad(LEFT_FULL, NONE);
 		addVirtualPadCamera();
 		virtualPad.alpha = 0;
 		#end
@@ -286,7 +289,7 @@ class MenuCharacterEditorState extends MusicBeatState
 				FlxG.sound.volumeUpKeys = [];
 				blockInput = true;
 
-				if(FlxG.keys.justPressed.ENTER #if mobile || virtualPad.buttonA.pressed #end) inputText.hasFocus = false;
+				if(FlxG.keys.justPressed.ENTER) inputText.hasFocus = false;
 				break;
 			}
 		}
@@ -321,7 +324,7 @@ class MenuCharacterEditorState extends MusicBeatState
 				updateOffset();
 			}
 
-			if(FlxG.keys.justPressed.SPACE #if mobile || virtualPad.buttonB.pressed #end&& curTypeSelected == 1) {
+			if(FlxG.keys.justPressed.SPACE && curTypeSelected == 1) {
 				grpWeekCharacters.members[curTypeSelected].animation.play('confirm', true);
 			}
 		}

@@ -20,6 +20,9 @@ import flixel.addons.ui.FlxUIInputText;
 import flixel.addons.ui.FlxUINumericStepper;
 import flixel.addons.ui.FlxUITabMenu;
 import flixel.ui.FlxButton;
+#if mobile
+import mobile.flixel.FlxButton;
+#end
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import openfl.net.FileReference;
@@ -109,9 +112,9 @@ class DialogueEditorState extends MusicBeatState
 		changeText();
 		
 		#if mobile
-		addVirtualPad(NONE, A_B);
+		addVirtualPad(NONE, A_B_X_Y);
 		addVirtualPadCamera();
-		virtualPad.y = 0;
+		virtualPad.alpha = 0;
 		#end
 		
 		super.create();
@@ -393,7 +396,7 @@ class DialogueEditorState extends MusicBeatState
 				}
 			}
 
-			if(FlxG.keys.justPressed.O) {
+			if(FlxG.keys.justPressed.O #if mobile || virtualPad.buttonY.pressed #end) {
 				dialogueFile.dialogue.remove(dialogueFile.dialogue[curSelected]);
 				if(dialogueFile.dialogue.length < 1) //You deleted everything, dumbo!
 				{
@@ -402,7 +405,7 @@ class DialogueEditorState extends MusicBeatState
 					];
 				}
 				changeText();
-			} else if(FlxG.keys.justPressed.P) {
+			} else if(FlxG.keys.justPressed.P #if mobile || virtualPad.buttonX.pressed #end) {
 				dialogueFile.dialogue.insert(curSelected + 1, copyDefaultLine());
 				changeText(1);
 			}

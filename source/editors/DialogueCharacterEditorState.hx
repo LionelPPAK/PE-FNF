@@ -20,6 +20,9 @@ import flixel.addons.ui.FlxUIInputText;
 import flixel.addons.ui.FlxUINumericStepper;
 import flixel.addons.ui.FlxUITabMenu;
 import flixel.ui.FlxButton;
+#if mobile
+import mobile.flixel.FlxButton;
+#end
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import openfl.net.FileReference;
