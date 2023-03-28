@@ -20,6 +20,8 @@ import flixel.addons.ui.FlxUIInputText;
 import flixel.addons.ui.FlxUINumericStepper;
 import flixel.addons.ui.FlxUITabMenu;
 import flixel.ui.FlxButton;
+import flixel.tweens.FlxEase;
+import flixel.tweens.FlxTween;
 import openfl.net.FileReference;
 import openfl.events.Event;
 import openfl.events.IOErrorEvent;
@@ -166,6 +168,7 @@ class DialogueCharacterEditorState extends MusicBeatState
 		addVirtualPad(UP_DOWN, A_B);
 		addVirtualPadCamera();
 		virtualPad.y = 0;
+		#end
 		
 		super.create();
 		

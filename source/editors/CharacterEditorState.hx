@@ -25,6 +25,8 @@ import flixel.addons.ui.FlxUITabMenu;
 import flixel.addons.ui.FlxUITooltip.FlxUITooltipStyle;
 import flixel.ui.FlxButton;
 import flixel.ui.FlxSpriteButton;
+import flixel.tweens.FlxEase;
+import flixel.tweens.FlxTween;
 import openfl.net.FileReference;
 import openfl.events.Event;
 import openfl.events.IOErrorEvent;
