@@ -23,9 +23,10 @@ import flixel.addons.ui.FlxUIInputText;
 import flixel.addons.ui.FlxUINumericStepper;
 import flixel.addons.ui.FlxUITabMenu;
 import flixel.addons.ui.FlxUITooltip.FlxUITooltipStyle;
-import flixel.ui.FlxButton;
 #if mobile
 import mobile.flixel.FlxButton;
+#else
+import flixel.ui.FlxButton;
 #end
 import flixel.ui.FlxSpriteButton;
 import flixel.tweens.FlxEase;
@@ -209,9 +210,12 @@ class CharacterEditorState extends MusicBeatState
 		#if mobile
 		addVirtualPad(LEFT_FULL, A_B_C_D_V_X_Y_Z);
 		addVirtualPadCamera();
+		virtualPad.alpha = 0;
 		#end
 		
 		super.create();
+		
+		FlxTween.tween(virtualPad, {alpha: 0.6}, 1, {ease: FlxEase.circInOut});
 	}
 
 	var onPixelBG:Bool = false;
@@ -1130,6 +1134,7 @@ class CharacterEditorState extends MusicBeatState
 				} else {
 					MusicBeatState.switchState(new editors.MasterEditorMenu());
 					FlxG.sound.playMusic(Paths.music('freakyMenu'));
+				FlxTween.tween(virtualPad, {alpha: 0}, 1, {ease: FlxEase.circInOut});
 				}
 				FlxG.mouse.visible = false;
 				return;

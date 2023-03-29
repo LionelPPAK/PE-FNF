@@ -34,9 +34,10 @@ import flixel.system.FlxSound;
 import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
-import flixel.ui.FlxButton;
 #if mobile
 import mobile.flixel.FlxButton;
+#else
+import flixel.ui.FlxButton;
 #end
 import flixel.ui.FlxSpriteButton;
 import flixel.util.FlxColor;
@@ -396,9 +397,13 @@ class ChartingState extends MusicBeatState
 		
 		#if mobile
 		addVirtualPad(LEFT_FULL, A_B_C_D_V_X_Y_Z);
+		addVirtualPadCamera();
+		virtualPad.alpha = 0;
 		#end
 		
 		super.create();
+		
+		FlxTween.tween(virtualPad, {alpha: 0.6}, 1, {ease: FlxEase.circInOut});
 	}
 
 	var check_mute_inst:FlxUICheckBox = null;
@@ -1709,6 +1714,7 @@ class ChartingState extends MusicBeatState
 				PlayState.chartingMode = false;
 				MusicBeatState.switchState(new editors.MasterEditorMenu());
 				FlxG.sound.playMusic(Paths.music('freakyMenu'));
+				FlxTween.tween(virtualPad, {alpha: 0}, 1, {ease: FlxEase.circInOut});
 				FlxG.mouse.visible = false;
 				return;
 			}
